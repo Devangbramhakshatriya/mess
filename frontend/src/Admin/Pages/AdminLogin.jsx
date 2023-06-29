@@ -24,7 +24,7 @@ import {
       try {
         setLoading(true)
         let res = await fetch(
-          'http://localhost:4500/admins/login',
+          'https://mess-backend-wueq.onrender.com/admins/login',
           {
             method: 'POST',
             headers: {

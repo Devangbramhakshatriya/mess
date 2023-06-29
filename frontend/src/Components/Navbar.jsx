@@ -15,7 +15,7 @@ function Navbar() {
 
     const getUserName = () => {
         
-            fetch(`http://localhost:4500/users/getuser`, {
+            fetch(`https://mess-backend-wueq.onrender.com/users/getuser`, {
                 method: 'GET',
                 headers: {
                     Authorization: localStorage.getItem('user_token'),
@@ -36,7 +36,7 @@ function Navbar() {
         
     return (
         <Box bgGradient='linear(to-l, #7928CA, #FF0080)' display="flex" justifyContent="space-between" mb="20px">
-            <Box textAlign="start"><Text fontSize="18px" color="white" fontWeight="bold" display="flex"><Text>{name}</Text></Text></Box>
+            <Text fontSize="18px" color="white" fontWeight="bold" display="flex" alignItems="center" ml="20px"><RouterLink to="/">{name}</RouterLink></Text>
             {
                 isLessthan550 ?  <Box display="flex" justifyContent="end" mr="20px"><SideDrawer/></Box>
                 :

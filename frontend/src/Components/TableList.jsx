@@ -11,7 +11,7 @@ function TableList({date,time,total,quantity}){
     return(
         <Tr>
             <Td>{date}</Td>
-            <Td>{t}</Td>
+            <Td>{time}</Td>
             <Td>{quantity}</Td>
             <Td>{total}</Td>
         </Tr>

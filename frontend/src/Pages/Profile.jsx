@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom"
 import Navbar from "../Components/Navbar"
 
 function Profile() {
-    const [name, setName] = useState("")
+    const [user, setUser] = useState([])
     const [SearchParams] = useSearchParams()
     const [data, setData] = useState([])
     const dispatch = useDispatch()
@@ -50,7 +50,7 @@ function Profile() {
     }
     console.log(data)
     const getUserName = () => {
-        fetch(`http://localhost:4500/users/getuser`, {
+        fetch(`https://mess-backend-wueq.onrender.com/users/getuser`, {
             method: 'GET',
             headers: {
                 Authorization: localStorage.getItem('user_token'),
@@ -58,8 +58,9 @@ function Profile() {
             }
         })
             .then((res) => res.json())
-            .then((res) => setName(`${res.user.firstName} ${res.user.lastName}`))
+            .then((res) => setUser(res.user))
     }
+    console.log(user)
     let q = 0;
     let t = 0;
     order.length > 0 && order.map((e) => {
@@ -76,34 +77,48 @@ function Profile() {
         <Box>
             <Navbar />
             <Box>
-                <Box>{name ? <Text>{name}</Text> : "...Loading"}</Box>
+                <Box fontFamily="sans-serif">{user.firstName ?
+                    <Box display="flex" justifyContent="space-around">
+                        <Text>{user.firstName} {user.lastName}</Text>
+                        <Box display="flex" gap="5px">
+                            <Text>Deposite {user.diposite}</Text> <Text bg={user.dipositeStatus == "Pending" ? "red.300" : user.dipositeStatus == "Paid" ? "green.200" : user.dipositeStatus == "Refunded" ? "yellow.200" : ""}>{user.dipositeStatus}</Text>
+                        </Box>
+                    </Box>
+                    : "...Loading"}</Box>
                 <Button onClick={() => handleDate(-1)}>Prev</Button>
                 <Button onClick={() => handleDate(0)}>Next</Button>
                 <Box>
                     {isLoading ? <Image src="https://cdn.dribbble.com/users/645440/screenshots/3266490/loader-2_food.gif" m="auto" /> :
-                        <Table>
-                            <Thead>
-                                <Tr>
-                                    <Th>Date</Th>
-                                    <Th>Time</Th>
-                                    <Th>Quantity</Th>
-                                    <Th>Price</Th>
-                                </Tr>
-                            </Thead>
-                            <Tbody>
-                                {order.map((el) => (
+                        <Box overflow="auto">
+                            {
+                                order.length > 0 ?
+                                    <Table>
+                                        <Thead>
+                                            <Tr>
+                                                <Th>Date</Th>
+                                                <Th>Time</Th>
+                                                <Th>Quantity</Th>
+                                                <Th>Price</Th>
+                                            </Tr>
+                                        </Thead>
+                                        <Tbody>
+                                            {order.map((el) => (
 
-                                    <TableList key={el._id} date={el.date} time={el.time} quantity={el.quantity} total={el.total} />
+                                                <TableList key={el._id} date={el.date} time={el.time} quantity={el.quantity} total={el.total} />
 
-                                ))}
-                                <Tr>
-                                    <Th>Total :-</Th>
-                                    <Th></Th>
-                                    <Th>{q}</Th>
-                                    <Th>{t}</Th>
-                                </Tr>
-                            </Tbody>
-                        </Table>
+                                            ))}
+                                            <Tr>
+                                                <Th>Total :-</Th>
+                                                <Th></Th>
+                                                <Th>{q}</Th>
+                                                <Th>{t}</Th>
+                                            </Tr>
+                                        </Tbody>
+                                    </Table>
+                                    :
+                                    "No Date"
+                            }
+                        </Box>
                     }
                 </Box>
             </Box>

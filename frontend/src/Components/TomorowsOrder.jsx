@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { getData } from "../Redux/Order/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Text, Image, Button, useToast } from "@chakra-ui/react"
-function TodaysOrder() {
+function TomorowsOrder() {
     const [data, setData] = useState([])
     const dispatch = useDispatch()
     const toast = useToast()
@@ -22,14 +22,16 @@ function TodaysOrder() {
         m = `0${m}`
     }
     let y = date1.getFullYear()
-    const minDate = `${y}-${m}-${d}`
+    const minDate = `${y}-${m}-${d+1}`
+    const todaysDate=`${y}-${m}-${d}`
     let or=order.filter((e)=>e.date==minDate)
 
     const handleDelete = (e) => {
+
         let time1 = ""
-        if (e.time < "12") {
+        if (e.time < "12" && e.date==todaysDate ) {
             time1 = "10:00"
-        } else if (e.time > "12") {
+        } else if (e.time > "12" && e.date==todaysDate) {
             time1 = "18:00"
         }
         console.log(time1)
@@ -37,7 +39,7 @@ function TodaysOrder() {
         let h = d.getHours(); // => 9
         let m = d.getMinutes(); // =>  30
         let time = `${h}:${m}`
-        if (time > time1) {
+        if (time > time1 && e.date==todaysDate ) {
             toast({
                 title: "You can't delete order",
                 description: "Becaous order will be deliver in 2 hours ",
@@ -53,7 +55,7 @@ function TodaysOrder() {
                     'Content-Type': 'application/json',
                     Authorization: localStorage.getItem('user_token'),
                 }
-            }).then(() => dispatch(getData()))
+            }).then(() => getTodaysOrder())
         }
     }
     const getTodaysOrder=()=>{
@@ -78,16 +80,16 @@ function TodaysOrder() {
 
             :
 
-            data.length > 0 ? <Box><Text>Don't Worray Your Food Will Diliver On Time</Text>
-                <Image src="https://cdn.dribbble.com/users/2243442/screenshots/11362056/cooking-at-home.gif" w={["40%", "40%", "30%", "30%", "30%", "30%"]} m="auto" />
+            data.length > 0 ? <Box><Text>Tomorows Order</Text>
+               
                 {
                     data.map((e) => (
-                        <Box display="flex" w={["90%","70%","70%","60%","60%","60%"]} bg="green.300" justifyContent="space-around" m="auto" mt="20px" alignItems="center" key={e._id}>
+                        <Box display="flex" w={["90%","70%","70%","60%","60%","60%"]} bg="blue.100" justifyContent="space-around" m="auto" mt="20px" alignItems="center" key={e._id}>
                             <Box w={["30%","40%","40%","50%","50%","50%"]}>
                                 <Image src="https://media4.giphy.com/media/gg8Q0J4HD2rFm5LTHe/giphy.gif" w={["60%","40%","40%","30%","30%","30%"]} />
                             </Box>
                             <Box>
-                                <Text>Today's Order</Text>
+                                <Text>Tomorow's Order</Text>
                                 <Text>Qunatity:{e.quantity}</Text>
                                 <Text>Time:{e.time}</Text>
                             </Box>
@@ -98,15 +100,16 @@ function TodaysOrder() {
                     ))
                 }</Box>
                 :
-                <Box>
-                    <Text>You Not Ordered Anything For Today!</Text>
-                    <Text>Order Food For Today</Text>
-                    <Image src="https://media.tenor.com/W532CY2SqesAAAAM/brunch-order-up.gif" m="auto" />
-                    {/* https://media.tenor.com/4EauhAI5810AAAAM/lets-order-menu.gif */}
-                </Box>
+                ""
+                // <Box>
+                //     <Text>You Not Ordered Anything For Today!</Text>
+                //     <Text>Order Food For Today</Text>
+                //     <Image src="https://media.tenor.com/W532CY2SqesAAAAM/brunch-order-up.gif" m="auto" />
+                //     {/* https://media.tenor.com/4EauhAI5810AAAAM/lets-order-menu.gif */}
+                // </Box>
         }
         </Box>
     )
 }
 
-export default TodaysOrder
+export default TomorowsOrder

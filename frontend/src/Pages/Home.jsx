@@ -5,6 +5,7 @@ import Navbar from "../Components/Navbar";
 import TodaysOrder from "../Components/TodaysOrder";
 import { useDispatch } from "react-redux";
 import { getData, postData } from "../Redux/Order/action";
+import TomorowsOrder from "../Components/TomorowsOrder";
 let init = {
     date: "",
     time: "",
@@ -95,7 +96,7 @@ function Home() {
         <Box>
             <Navbar/>
         <Box>
-            <Box w={["70%","50%","40%","40%","40%","40%"]} m="auto">
+            <Box w={["70%","50%","40%","40%","40%","40%"]} m="auto" mb="30px">
             <form action="" onSubmit={handleSubmit} >
                 {/* <Input type="date" onChange={(e) => setDate(e.target.value)} name="date" min={minDate} max={maxDate} required={true} /> */}
                 <Select onChange={(e) => setDate(e.target.value)} required={true} >
@@ -119,6 +120,7 @@ function Home() {
             </form>
             </Box>
             <TodaysOrder />
+            <TomorowsOrder/>
         </Box>
         </Box>
     )

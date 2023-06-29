@@ -17,25 +17,28 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import axios from "axios"
 
 const init={
     firstName:"",
     lastName:"",
     mobileNumber:"",
-    password:""
+    password:"",
+    diposite:700,
+    dipositeStatus:"Pending"
 }
 function Signup() {
     const [showPassword, setShowPassword] = useState(false);
     const [text,setText]=useState(init)
     const toast = useToast()
+    const navigate=useNavigate()
     const handleChange=(e)=>{
         setText({...text,[e.target.name]:e.target.value})
     }
     const handleSubmit=async(e)=>{
         e.preventDefault()
-        const res= axios.post('http://localhost:4500/users/register',text)
+        const res= axios.post('https://mess-backend-wueq.onrender.com/users/register',text)
         // .then((res)=>console.log("Login Success"))
         // .then(()=>setText(init))
         .catch((err)=>console.log(err));
@@ -59,6 +62,7 @@ function Signup() {
                 isClosable: true,
                 position:"top"
               })
+              navigate('/login')
         }else{
             toast({
                 title: 'Enter Correct Details.',

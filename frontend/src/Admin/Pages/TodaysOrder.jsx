@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function TodaysOrder() {
     const [data, setData] = useState([])
     const fetchtodaysorder = () => {
-        fetch(`http://localhost:4500/orders/gettodaysorder`)
+        fetch(`https://mess-backend-wueq.onrender.com/orders/gettodaysorder`)
             .then((res) => res.json())
             .then((res) => setData(res))
     }

@@ -25,7 +25,7 @@ function Login() {
     const handleSubmit=async(e)=>{
         e.preventDefault()
         console.log(obj)
-            const res=axios.post('http://localhost:4500/users/login',obj)
+            const res=axios.post('https://mess-backend-wueq.onrender.com/users/login',obj)
         .then((res)=>{
             toast({
                 title: 'Login Success.',

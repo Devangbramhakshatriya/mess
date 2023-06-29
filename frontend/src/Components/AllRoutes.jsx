@@ -18,7 +18,7 @@ function AllRoutes(){
             <Route path="/" element={<PrivateRoute><Home/></PrivateRoute>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/adminlogin" element={<AdminLogin/>}/>
-            <Route path="/signup" element={<PrivateRoute><Signup/></PrivateRoute>}/>
+            <Route path="/signup" element={<Signup/>}/>
             <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>}/>
             <Route path="/admin" element={<AdminProtectedRoute><Dashboard/></AdminProtectedRoute>}/>
             <Route path="/admin/users" element={<AdminProtectedRoute><Users/></AdminProtectedRoute>}/>
