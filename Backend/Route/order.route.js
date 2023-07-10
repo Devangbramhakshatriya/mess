@@ -1,5 +1,5 @@
 const express=require("express")
-const { addOder, getOrder, deleteOrder, getSingleOrder, userOrder, todaysOrder, getTodaysOrder, getTomorrowsOrder, getYesterdaysOrder, addOderadmin } = require("../Controller/order.controller")
+const { addOder, getOrder, deleteOrder, getSingleOrder, userOrder, getTodaysOrder, getTomorrowsOrder, getYesterdaysOrder, addOderadmin } = require("../Controller/order.controller")
 const { auth } = require("../Middleware/auth.middleware")
 const order=express.Router()
 order.post("/addorder",auth,addOder)

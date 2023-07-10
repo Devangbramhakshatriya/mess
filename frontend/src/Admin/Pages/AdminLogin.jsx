@@ -24,7 +24,7 @@ import {
       try {
         setLoading(true)
         let res = await fetch(
-          'https://ruby-muddy-earthworm.cyclic.app/admins/login',
+          'http://localhost:4500/admins/login',
           {
             method: 'POST',
             headers: {
